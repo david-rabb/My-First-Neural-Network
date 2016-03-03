@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Implementation of Matt Mazur's "A Step by Step Backpropagation Example". 
+ *   http://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
+ * A very simple network containing two inputs, two hidden neurons and two outputs. 
+ * This is to verify that basic feed forward and back propagation calculations agree with others.
+ * 
  * @author David
  */
 public class Network4 {
-  private static final double rate = 0.5;
+  private static final double rate = 0.5; 
   
   Layer layer1;
   Layer layer2;
@@ -21,21 +25,7 @@ public class Network4 {
   public void train(double[] input, double[] expected) {
     // feed forward
     layer1.feedForward(input, layer2);
-    /*
-    System.out.print("\nInput:  ");
-    for(int i=0; i<input.length; i++) {
-      System.out.print(round(input[i])+" ");
-    }
-    System.out.print("\nOutput1: ");
-    for(Neuron n1 : layer1.neurons) {
-      System.out.print(round(n1.output)+" ");
-    }
-    System.out.print("\nOutput2: ");
-    for(Neuron n2 : layer2.neurons) {
-      System.out.print(round(n2.output)+" ");
-    }
-    System.out.println();
-    */
+    
     // Back propagation
     layer2.computeError(expected);
     layer1.computeHiddenError(layer2);
@@ -47,25 +37,6 @@ public class Network4 {
     for(Neuron n2 : layer2.neurons) {
       n2.updateWeights();
     }
-    /*
-    System.out.print("\nOutput: ");
-    for(Neuron n2 : layer1) {
-      System.out.print(round(n2.output)+" ");
-    }
-    System.out.print("\nError: ");
-    for(Neuron n2 : layer1) {
-      System.out.print(round(n2.error)+" ");
-    }
-    System.out.print("\nOutput: ");
-    for(Neuron n2 : layer2) {
-      System.out.print(round(n2.output)+" ");
-    }
-    System.out.print("\nError: ");
-    for(Neuron n2 : layer2) {
-      System.out.print(round(n2.error)+" ");
-    }
-    System.out.println("\nExpected: "+expected);
-    */
   }
   
   public void print() {
@@ -151,6 +122,7 @@ public class Network4 {
       return sum;
     }
   }
+  
   class Neuron {
     Layer layer;
     double[] weight;
@@ -163,7 +135,7 @@ public class Network4 {
       weight = new double[layer.numInputs+1];
       error = new double[layer.numInputs+1];
       
-      // initialize weights randomly
+      // initialize weights randomly (will be overwritten by assigned weights above)
       for(int i=0; i<weight.length; i++) {
         //weight[i] = Math.random();
         weight[i] = 1.0;
