@@ -17,7 +17,7 @@ public class Network4 {
   Layer layer1;
   Layer layer2;
   
-  public Network4(int[] numInputs) {
+  public Network4(int[] numInputs) { // num inputs: original, hidden, last
     layer1 = new Layer(numInputs[0], numInputs[1]);
     layer2 = new Layer(numInputs[1], numInputs[2]);
   }
@@ -39,6 +39,7 @@ public class Network4 {
     }
   }
   
+  /* pretty print the network weights */
   public void print() {
     System.out.println("Weights: ");
     for(int i=0; i<layer1.neurons.size(); i++) {
@@ -73,6 +74,7 @@ public class Network4 {
     return (Math.round(d*1000.0))/1000.0;
   }
   
+  /* a layer of Perceptrons  */
   class Layer {
     int numInputs;
     double[] input;
@@ -123,6 +125,7 @@ public class Network4 {
     }
   }
   
+  /* Perceptron implementation with an array of inputs, a bias and a single output */
   class Neuron {
     Layer layer;
     double[] weight;
